@@ -615,9 +615,11 @@ gen_appended_uImage()
   true >"$BINARIES_DIR/none.dtb"
 
   ##handle the variations here rather than pass lots of variables
-  [ "$variant" = "alpine" ] || [ "$variant" = "ls700" ] && output="uImage-generic.buffalo"
+  [ "$variant" = "alpine" ] || [ "$variant" = "alpine64" ] || [ "$variant" = "ls700" ] && output="uImage-generic.buffalo"
   [ "$variant" = "ls500" ] && addr="0x108000" && output="nand.uImage"
-  [ "$ARCH_TYPE" = "arm64" ] && arch="arm64" && addr="0x2200000" && kernel="Image" && dtb=".dtb"
+  [ "$ARCH_TYPE" = "arm64" ] && arch="arm64"
+  [ "$variant" = "ls700" ] && addr="0x2200000" && kernel="Image" && dtb=".dtb"
+  [ "$variant" = "alpine64" ] && addr="0x4080000" && kernel="Image" && dtb=".dtb"
   [ "$variant" = "armada370" ] || [ "$variant" = "armadaxp" ] || [ "$variant" = "marvellv5" ] && cp "$custom_dir/$ARCH_TYPE""_shim" "$shim"
   [ "$BR2_LINUX_KERNEL_INTREE_DTS_NAME" = "kirkwood-terastation-tsxel" ] && output="uImage-88f6281.buffalo"
   [ "$BR2_LINUX_KERNEL_IMAGEGZ" ] && compress="gzip" && kernel="Image.gz"
@@ -630,7 +632,8 @@ gen_appended_uImage()
   [ "$dtb" = "orion5x-terastation-ts2pro.dtb" ] && echo -e -n "\\x06\\x1c\\xa0\\xe3\\x30\\x10\\x81\\xe3" > "$machfile"
   [ "$dtb_prefix" = "mv78100" ] && echo -e -n "\\x0a\\x1c\\xa0\\xe3\\x89\\x10\\x81\\xe3" > "$machfile"
 
-  [ "$dtb" = ".dtb" ] && dtb="none.dtb" && dtb="$BINARIES_DIR/$dtb"
+  [ "$dtb" = ".dtb" ] && dtb="none.dtb" ##&& touch "$BINARIES_DIR/$dtb"
+  dtb="$BINARIES_DIR/$dtb"
   kernel="$BINARIES_DIR/$kernel"
 
   ##if doing non-dtb init empty the dtb ahead of append step
@@ -649,7 +652,7 @@ generate_initrd_uboot()
   local output="initrd.buffalo"
   local addr="0x0"
 
-  [ "$variant" = "alpine" ] || [ "$variant" = "ls700" ] && output="uInitrd-generic.buffalo"
+  [ "$variant" = "alpine" ] || [ "$variant" = "alpine64" ] || [ "$variant" = "ls700" ] && output="uInitrd-generic.buffalo"
   [ "$ARCH_TYPE" = "arm64" ] && arch="arm64"
   mkimage -A $arch -O linux -T ramdisk -C gzip -a "$addr" -e "$addr" -n buildroot-initrd -d "$BINARIES_DIR/initrd.gz" "$BINARIES_DIR/$output"
 
