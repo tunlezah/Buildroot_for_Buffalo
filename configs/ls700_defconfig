@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot -g5ac23b2-dirty Configuration
+# Buildroot -g210256a-dirty Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOST_GCC_AT_LEAST_4_9=y
@@ -11,6 +11,9 @@ BR2_HOST_GCC_AT_LEAST_8=y
 BR2_HOST_GCC_AT_LEAST_9=y
 BR2_HOST_GCC_AT_LEAST_10=y
 BR2_HOST_GCC_AT_LEAST_11=y
+BR2_HOST_GCC_AT_LEAST_12=y
+BR2_HOST_GCC_AT_LEAST_13=y
+BR2_HOST_GCC_AT_LEAST_14=y
 
 #
 # Target options
@@ -1490,6 +1493,7 @@ BR2_PACKAGE_PCIUTILS=y
 # BR2_PACKAGE_PIGPIO is not set
 # BR2_PACKAGE_POWERTOP is not set
 # BR2_PACKAGE_PPS_TOOLS is not set
+# BR2_PACKAGE_PULSEVIEW is not set
 # BR2_PACKAGE_QORIQ_CADENCE_DP_FIRMWARE is not set
 # BR2_PACKAGE_RASPI_GPIO is not set
 # BR2_PACKAGE_RDMA_CORE is not set
@@ -1702,6 +1706,7 @@ BR2_PACKAGE_MONO_ARCH_SUPPORTS=y
 # BR2_PACKAGE_MONO is not set
 BR2_PACKAGE_NODEJS_ARCH_SUPPORTS=y
 # BR2_PACKAGE_NODEJS is not set
+BR2_PACKAGE_PROVIDES_NODEJS="nodejs-src"
 
 #
 # octave needs a toolchain w/ C++ and fortran, gcc >= 4.8
@@ -3043,7 +3048,7 @@ BR2_PACKAGE_LIBOPENH264_ARCH_SUPPORTS=y
 BR2_PACKAGE_DPDK_ARCH_SUPPORTS=y
 
 #
-# DPDK needs a toolchain w/ dynamic library, threads, wchar, kernel headers >= 4.19
+# dpdk needs a glibc toolchain w/ threads, gcc >= 4.9, headers >= 4.19
 #
 # BR2_PACKAGE_ENET is not set
 # BR2_PACKAGE_FILEMQ is not set
