@@ -700,3 +700,12 @@ firewalld_errata()
     [ ! -e "$TARGET_DIR/usr/sbin/$x" ] && [ -f "$TARGET_DIR/sbin/$x" ] && ln -s "/sbin/$x" "$TARGET_DIR/usr/sbin/$x"
   done
 }
+
+module_setup()
+{
+  if [ "$BR2_INIT_OPENRC" = "y" ]; then
+    mkdir "$TARGET_DIR/etc/modules-load.d/" 2>/dev/null
+    touch "$TARGET_DIR/etc/modules-load.d/modules.conf"
+    ln -s "/etc/modules-load.d/modules.conf" "$TARGET_DIR/etc/modules"
+  fi
+}
