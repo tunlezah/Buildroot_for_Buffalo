@@ -42,7 +42,7 @@ These images have some advantages over a more traditional distro like Debian, in
 
 7. Build the project
 
-`make`
+`make -j$(nproc) || make -j$(nproc)`
 
 8. Refer to the repo wiki pages for details about installing/using the images.
 
