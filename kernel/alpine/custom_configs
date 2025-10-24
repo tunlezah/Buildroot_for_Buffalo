@@ -47,3 +47,9 @@ CONFIG_HIGHMEM=y
 
 ## smaller kernel, why not?
 CONFIG_KERNEL_XZ=y
+
+##SAS support on TS51210RH ?
+##it looks like the bays a sas/sata but the controller is still only sata
+#CONFIG_SCSI_SAS_ATA=y
+#CONFIG_SCSI_SAS_ATTRS=y
+#CONFIG_SCSI_SAS_LIBSAS=y

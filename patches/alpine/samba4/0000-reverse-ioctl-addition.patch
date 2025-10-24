@@ -1,0 +1,57 @@
+diff -uNr samba4-4.22.4-clean/lib/replace/replace.c samba4-4.22.4/lib/replace/replace.c
+--- samba4-4.22.4-clean/lib/replace/replace.c	2025-10-18 13:48:16.299938703 -0500
++++ samba4-4.22.4/lib/replace/replace.c	2025-10-18 13:53:50.779931364 -0500
+@@ -1083,34 +1083,6 @@
+ }
+ #endif /* HAVE_COPY_FILE_RANGE */
+ 
+-#ifdef HAVE_LINUX_IOCTL
+-# include <linux/fs.h>
+-# include <sys/ioctl.h>
+-#endif
+-
+-ssize_t rep_copy_reflink(int src_fd,
+-			 off_t src_off,
+-			 int dst_fd,
+-			 off_t dst_off,
+-			 off_t to_copy)
+-{
+-#ifdef HAVE_LINUX_IOCTL
+-	struct file_clone_range cr;
+-
+-	cr = (struct file_clone_range) {
+-		.src_fd = src_fd,
+-		.src_offset = (uint64_t)src_off,
+-		.dest_offset = (uint64_t)dst_off,
+-		.src_length = (uint64_t)to_copy,
+-	};
+-
+-	return ioctl(dst_fd, FICLONERANGE, &cr);
+-#else
+-	errno = ENOSYS;
+-	return -1;
+-#endif
+-}
+-
+ #ifndef HAVE_OPENAT2
+ 
+ /* fallback known wellknown __NR_openat2 values */
+diff -uNr samba4-4.22.4-clean/lib/replace/replace.h samba4-4.22.4/lib/replace/replace.h
+--- samba4-4.22.4-clean/lib/replace/replace.h	2025-10-18 13:48:16.299938703 -0500
++++ samba4-4.22.4/lib/replace/replace.h	2025-10-18 13:53:50.783931364 -0500
+@@ -1010,15 +1010,6 @@
+ 			    unsigned int flags);
+ #endif /* HAVE_COPY_FILE_RANGE */
+ 
+-
+-#define copy_reflink rep_copy_reflink
+-
+-ssize_t rep_copy_reflink(int src_fd,
+-			 off_t src_off,
+-			 int dst_fd,
+-			 off_t dst_off,
+-			 off_t to_copy);
+-
+ #ifndef FALL_THROUGH
+ # ifdef HAVE_FALLTHROUGH_ATTRIBUTE
+ #  define FALL_THROUGH __attribute__ ((fallthrough))
