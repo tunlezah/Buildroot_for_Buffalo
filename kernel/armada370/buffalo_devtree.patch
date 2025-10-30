@@ -561,7 +561,7 @@ index 0000000..577954f
 +	hdd_pwr2: hdd-pwr2
 +	{
 +		marvell,pins = "mpp2";
-+		marvell,function = "gpo";
++		marvell,function = "gpio";
 +	};
 +
 +	function_led_red: function-led-red

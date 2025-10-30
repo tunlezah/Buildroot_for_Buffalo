@@ -11,6 +11,8 @@ generate_initrd_uboot
 
 bootfs_dtb_copy
 
+bootfs_copy "../scripts/armada370_nand_install.sh"
+
 create_image
 
 exit 0
